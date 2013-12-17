@@ -1,0 +1,17 @@
+/**
+ * @file global.css
+ *
+ * @brief Defines essential styles
+ *
+ * Color definitions:
+ *
+ *  Background: #000000
+ *  Primary:	#FFFFFF
+ *	
+ */
+
+
+html {
+	background: #000000;
+	color:		#FFFFFF;
+}
