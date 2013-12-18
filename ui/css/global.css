@@ -15,3 +15,40 @@ html {
 	background: #000000;
 	color:		#FFFFFF;
 }
+
+html a,
+html a:focus,
+html a:hover,
+html a:visited { outline: none; text-decoration: none; }
+
+#main {}
+
+#main > #head {}
+
+#main > #footer {}
+
+#main > #content {}
+
+#main > #content > #container {
+	display:inline-block;
+    position:relative;
+    left:50%;
+}
+
+#main > #content > #container > #box {
+    position:relative;
+    left:-50%;
+}
+
+#main > #content > #container > #box > .slot {
+	float: left;
+	padding: 0;
+	margin: 0;
+}
+
+#main > #content > #container > #box > .slot > img {
+	height: auto;
+	width: auto;
+	border: none;
+	outline: none;
+}
