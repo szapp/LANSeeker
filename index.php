@@ -9,6 +9,4 @@
 $rp = "./";
 require_once($rp . "af/engine.php");
 
-// Output applied template
-echo $fe; 
 ?>
