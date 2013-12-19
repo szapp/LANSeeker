@@ -19,14 +19,14 @@ $res = $rp . 'res/';
 // Classes
 require_once($class . "Template.php");
 require_once($class . "Distributor.php");
-require_once($class . "Slot.php");
+require_once($class . "Game.php");
 // Functions
 require_once($inc . "manageLocations.php");
 require_once($inc . "manageSlots.php");
 // Includes
 /* require_once($inc . "config.php"); 	// TODO: Establish (connenction to) database
 require_once($inc . "connect.php"); */
-require_once($inc . "findSlots.php");	//TODO: Connect to database to check which Slots are available
+require_once($inc . "findGames.php");	//TODO: Connect to database to check which Games are available
 
 // Page properties
 $pp = array(
@@ -49,8 +49,8 @@ $footer = new Template;
 
 // Content
 $content = new Template($content);
-$firstSlot = findSlots(Null);
-$content->set('slots', getSlots($firstSlot));
+$firstGame = findGames(NULL);
+$content->set('slots', fillSlots($firstGame));
 
 // Assemble main
 $main = new Template($main);

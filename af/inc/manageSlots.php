@@ -3,26 +3,26 @@
 /**
  * @file manageSlots.php
  * 
- * @brief Manages Slots
+ * @brief Manages Game slots
  */
 
 /**
- * @brief 
+ * @brief Fills the slot template with available Games
  *
- * @return Applied html of all Slots
+ * @return Applied html of all Game slots
  */
-function getSlots($slot) {
+function fillSlots($game) {
 	global $p_slot;
-	if (!get_class($slot))
-		throw new Exception("Argument is not a Slot reference", 1);
-	$slottmpl = new Template($p_slot);
+	if (!get_class($game))
+		throw new Exception("Argument is not of class Game", 1);
+	$slots = new Template($p_slot);
 	$op = "";
 	do {
-		$slottmpl->set('name', $slot->getName());
-		$slottmpl->set('cover', $slot->getCover());
-		$slottmpl->set('exe', $slot->getExe());
-		$op .= $slottmpl->render() . "\n";
-	} while ($slot = &$slot->getNeighbor());
+		$slots->set('name', $game->getName());
+		$slots->set('cover', $game->getCover());
+		$slots->set('exe', $game->getExe());
+		$op .= $slots->render() . "\n";
+	} while ($game = &$game->getNeighbor());
 	return $op;
 }
 ?>

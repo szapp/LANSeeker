@@ -1,17 +1,17 @@
 <?php
 
 /**
- * @file Slot.php
+ * @file Game.php
  *
- * @brief Contains Slot class
+ * @brief Contains Game class
  */
 
 /**
- * @class Slot
+ * @class Game
  *
  * @brief Gathers properties and methods of one game slot
  */
-class Slot {
+class Game {
 
 	/**
 	 * @brief Constructor
@@ -100,7 +100,7 @@ class Slot {
 	 */
 	public function setNeighbor(&$next) {
 		if (!get_class($next))
-			throw new Exception("Object does not exist or is not of class Slot", 1);
+			throw new Exception("Object does not exist or is not of class Game", 1);
 		$this->_next = $next;
 	}	
 
