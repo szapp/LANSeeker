@@ -88,8 +88,8 @@ class Game {
 	 * @param $cover of game
 	 */
 	public function setCover($cover) {
-		if (!file_exists('./res/' . $cover))
-			throw new Exception("Cover art does not exist "  . $cover , 1);
+		// if (!file_exists('./res/' . $cover))
+		// 	throw new Exception("Cover art does not exist "  . $cover , 1);
 		$this->_cover = $cover;
 	}
 
@@ -99,8 +99,8 @@ class Game {
 	 * @param Neighboring slot
 	 */
 	public function setNeighbor(&$next) {
-		if (!get_class($next))
-			throw new Exception("Object does not exist or is not of class Game", 1);
+		// if (!get_class($next))
+		//	throw new Exception("Object does not exist or is not of class Game", 1);
 		$this->_next = $next;
 	}	
 

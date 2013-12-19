@@ -15,12 +15,19 @@
  */
 function findGames($mysql = NULL) {
 	// TODO: Access mysql and retrieve Gamess
-	$firstGame = new Game("Name_1", "template.png", "Exe_1");
-	$curGame = $firstGame;
-	for ($i=2; $i < 9; $i++) { 
-		$curGame->setNeighbor(new Game("Name_" . $i, "template.png", "Exe_" . $i));
+
+	$query = 'SELECT * FROM games';
+	$result = mysql_query($query)
+		or die('Could not retrieve games: ' . mysql_error());
+
+	$emtpyGame = new Game("", "", "");
+	$curGame = $emtpyGame;
+	while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+		$curGame->setNeighbor(new Game($line['name'], /*$line['cover']*/ "template.png" , $line['exe']));
 		$curGame = $curGame->getNeighbor();
 	}
+	$firstGame = $emtpyGame->getNeighbor();
+	unset($emtpyGame, $curGame);
 	return $firstGame;
 }
 ?>

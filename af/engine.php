@@ -7,14 +7,14 @@
  */
 
 // Global variables
-$class = $rp . 'af/classes/';
-$inc = $rp . 'af/inc/';
-$html = $rp . 'ui/html/';
-$partials = $html . 'partials/';
-$con = $html . 'content/';
-$img = $rp . 'ui/img/';
-$js = $rp . 'ui/js/';
-$res = $rp . 'res/';
+$class 		= 	$rp . 'af/classes/';
+$inc 		= 	$rp . 'af/inc/';
+$html 		= 	$rp . 'ui/html/';
+$partials 	= $html . 'partials/';
+$con 		= $html . 'content/';
+$img 		= 	$rp . 'ui/img/';
+$js 		= 	$rp . 'ui/js/';
+$res 		= 	$rp . 'res/';
 
 // Classes
 require_once($class . "Template.php");
@@ -24,8 +24,7 @@ require_once($class . "Game.php");
 require_once($inc . "manageLocations.php");
 require_once($inc . "manageSlots.php");
 // Includes
-/* require_once($inc . "config.php"); 	// TODO: Establish (connenction to) database
-require_once($inc . "connect.php"); */
+require_once($inc . "config.php"); 	// TODO: Establish (connenction to) database
 require_once($inc . "findGames.php");	//TODO: Connect to database to check which Games are available
 
 // Page properties
@@ -51,6 +50,9 @@ $footer = new Template;
 $content = new Template($content);
 $firstGame = findGames(NULL);
 $content->set('slots', fillSlots($firstGame));
+
+// Close db conntection
+mysql_close($dbLink);
 
 // Assemble main
 $main = new Template($main);
