@@ -67,4 +67,5 @@ html a:visited { outline: none; text-decoration: none; }
 	width: auto;
 	border: none;
 	outline: none;
+	cursor: pointer;
 }
