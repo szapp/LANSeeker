@@ -20,10 +20,16 @@ class Game {
 	 * @param $cover image
 	 * @param $exe Name of executables
 	 */
-	public function __construct($name, $cover, $exe) {
-	    $this->setName($name);
-	    $this->setCover($cover);
-	    $this->setExe($exe);
+	public function __construct($name, string $cover = NULL, string $exe = NULL) {
+		if (is_array($name)) {
+			$this->setName($name['name']);
+			$this->setCover($name['cover']);
+			$this->setExe($name['exe']);
+		} else {
+			$this->setName($name);
+		    $this->setCover($cover);
+		    $this->setExe($exe);	
+		}
 	}
 
 	/**
@@ -41,8 +47,7 @@ class Game {
 	 * @return Exe of game
 	 */
 	public function getExe() {
-		// TODO: Call function to determine suitable Distributor and set corresponding $path
-		return /*$path . */$this->_exe;
+		return $this->_exe;
 	}
 
 	/**
@@ -51,7 +56,7 @@ class Game {
 	 * @return Cover image of game
 	 */
 	public function getCover() {
-		return './res/' . $this->_cover;
+		return $GLOBALS['res'] . $this->_cover;
 	}
 
 	/**

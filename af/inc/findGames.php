@@ -9,25 +9,16 @@
 /**
  * @brief Retrievs availabe Games from database
  *
- * @param $mysql connetction settings
- *
- * @return $firstGame The first Game object
+ * @return $games The first Game object
  */
-function findGames($mysql = NULL) {
-	// TODO: Access mysql and retrieve Gamess
+function findGames() {
 
-	$query = 'SELECT * FROM games';
+	$query = 'SELECT `name`,`cover`,`exe` FROM `games`';
 	$result = mysql_query($query)
 		or die('Could not retrieve games: ' . mysql_error());
 
-	$emtpyGame = new Game("", "", "");
-	$curGame = $emtpyGame;
-	while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		$curGame->setNeighbor(new Game($line['name'], /*$line['cover']*/ "template.png" , $line['exe']));
-		$curGame = $curGame->getNeighbor();
-	}
-	$firstGame = $emtpyGame->getNeighbor();
-	unset($emtpyGame, $curGame);
-	return $firstGame;
+	while ($line = mysql_fetch_array($result, MYSQL_ASSOC))
+		$games[] = new Game($line);
+	return $games;
 }
 ?>

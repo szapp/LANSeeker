@@ -7,14 +7,15 @@
  */
 
 // Global variables
-$class 		= 	$rp . 'af/classes/';
-$inc 		= 	$rp . 'af/inc/';
-$html 		= 	$rp . 'ui/html/';
+$class 		= $rp . 'af/classes/';
+$inc 		= $rp . 'af/inc/';
+$html 		= $rp . 'ui/html/';
 $partials 	= $html . 'partials/';
 $con 		= $html . 'content/';
-$img 		= 	$rp . 'ui/img/';
-$js 		= 	$rp . 'ui/js/';
-$res 		= 	$rp . 'res/';
+$css 		= $rp . 'ui/css/';
+$img 		= $rp . 'ui/img/';
+$js 		= $rp . 'ui/js/';
+$res 		= $rp . 'res/';
 
 // Classes
 require_once($class . "Template.php");
@@ -24,13 +25,15 @@ require_once($class . "Game.php");
 require_once($inc . "manageLocations.php");
 require_once($inc . "manageSlots.php");
 // Includes
-require_once($inc . "config.php"); 	// TODO: Establish (connenction to) database
-require_once($inc . "findGames.php");	//TODO: Connect to database to check which Games are available
+require_once($inc . "config.php");
+require_once($inc . "findGames.php");
+require_once($inc . "findDistributor.php");
 
 // Page properties
 $pp = array(
-	'favicon' 	=> $rp . 'ui/img/favicon.png',
-	'css'		=> $rp . 'ui/css/global.css',
+	'favicon' 	=> $img . 'favicon.png',
+	'css'		=> $css . 'global.css',
+	'js'		=> $js . 'jquery-1.10.2.js',
 	'pagetitle'	=> 'LAN Seeker'
 	);
 
@@ -48,8 +51,8 @@ $footer = new Template;
 
 // Content
 $content = new Template($content);
-$firstGame = findGames(NULL);
-$content->set('slots', fillSlots($firstGame));
+$games = findGames();
+$content->set('slots', fillSlots($games));
 
 // Close db conntection
 mysql_close($dbLink);

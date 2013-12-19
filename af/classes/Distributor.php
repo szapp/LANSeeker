@@ -18,9 +18,12 @@ class Distributor {
      *
      * @param $path Absolute path to repository
      */
-    public function __construct($path) {
+    public function __construct(array $array) {
         // TODO: Seperate $path into $_drive and $_path
         // TODO: Destinguish between network or local device
+
+        $this->_drive = $array['drive'];
+        $this->_path = $array['path'];
     }
 
     /**
@@ -47,7 +50,7 @@ class Distributor {
      * @return Float between 0 and 1
      */
     public function utilization() {
-    	// TODO: Determine utilization
+    	// TODO: Determine utilization (method necessary?)
     	return $_utilization;
     }
 

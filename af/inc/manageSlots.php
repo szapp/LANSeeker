@@ -11,18 +11,19 @@
  *
  * @return Applied html of all Game slots
  */
-function fillSlots($game) {
+function fillSlots(array $game) {
 	global $p_slot;
-	if (!get_class($game))
-		throw new Exception("Argument is not of class Game", 1);
 	$slots = new Template($p_slot);
+	$distr = findDistributor();
+	$slots->set('pathTo',$distr->pathTo());
+	unset($distr);
 	$op = "";
-	do {
-		$slots->set('name', $game->getName());
-		$slots->set('cover', $game->getCover());
-		$slots->set('exe', $game->getExe());
+	foreach ($game as $key => $value) {
+		$slots->set('name', $value->getName());
+		$slots->set('cover', $value->getCover());
+		$slots->set('exe', $value->getExe());
 		$op .= $slots->render() . "\n";
-	} while ($game = &$game->getNeighbor());
+	}
 	return $op;
 }
 ?>
