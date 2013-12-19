@@ -14,6 +14,16 @@
 html {
 	background: #000000;
 	color:		#FFFFFF;
+	overflow: scroll;
+	height: 100%;
+}
+
+body {
+	overflow: hidden;
+	max-width: 100%;
+	margin: 0;
+	padding: 0;
+	height: inherit;
 }
 
 html a,
@@ -21,23 +31,29 @@ html a:focus,
 html a:hover,
 html a:visited { outline: none; text-decoration: none; }
 
-#main {}
+#main {
+	height: inherit;
+}
 
 #main > #head {}
 
 #main > #footer {}
 
-#main > #content {}
+#main > #content {
+	height: inherit;
+}
 
 #main > #content > #container {
-	display:inline-block;
-    position:relative;
-    left:50%;
+    display: inline-block;
+    left: 50%;
+    position: relative;
+    top: 25%;
+    bottom: 25%;
 }
 
 #main > #content > #container > #box {
-    position:relative;
-    left:-50%;
+    left: -50%;
+    position: relative;
 }
 
 #main > #content > #container > #box > .slot {

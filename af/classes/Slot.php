@@ -41,7 +41,8 @@ class Slot {
 	 * @return Exe of game
 	 */
 	public function getExe() {
-		return $this->_exe;
+		// TODO: Call function to determine suitable Distributor and set corresponding $path
+		return /*$path . */$this->_exe;
 	}
 
 	/**

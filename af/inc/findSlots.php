@@ -16,7 +16,11 @@
 function findSlots($mysql = NULL) {
 	// TODO: Access mysql and retrieve Slots
 	$firstSlot = new Slot("Name_1", "template.png", "Exe_1");
-	$firstSlot->setNeighbor(new Slot("Name_2", "template.png", "Exe_2"));
+	$curSlot = $firstSlot;
+	for ($i=2; $i < 9; $i++) { 
+		$curSlot->setNeighbor(new Slot("Name_" . $i, "template.png", "Exe_" . $i));
+		$curSlot = $curSlot->getNeighbor();
+	}
 	return $firstSlot;
 }
 ?>
