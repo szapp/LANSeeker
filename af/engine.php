@@ -6,34 +6,14 @@
  * @brief Processes front end
  */
 
-// Global variables
-$class 		= $rp . 'af/classes/';
-$inc 		= $rp . 'af/inc/';
-$html 		= $rp . 'ui/html/';
-$partials 	= $html . 'partials/';
-$con 		= $html . 'content/';
-$css 		= $rp . 'ui/css/';
-$img 		= $rp . 'ui/img/';
-$js 		= $rp . 'ui/js/';
-$res 		= $rp . 'res/';
-
-// Classes
-require_once($class . "Template.php");
-require_once($class . "Distributor.php");
-require_once($class . "Game.php");
-// Functions
-require_once($inc . "manageLocations.php");
-require_once($inc . "manageSlots.php");
-// Includes
-require_once($inc . "config.php");
-require_once($inc . "findGames.php");
-require_once($inc . "findDistributor.php");
+require_once('global.php');
 
 // Page properties
 $pp = array(
 	'favicon' 	=> $img . 'favicon.png',
 	'css'		=> $css . 'global.css',
-	'js'		=> $js . 'jquery-1.10.2.js',
+	'js1'		=> $js . 'jquery-1.10.2.min.js',
+	'js2'		=> $js . 'global.js',
 	'pagetitle'	=> 'LAN Seeker'
 	);
 
