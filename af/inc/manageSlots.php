@@ -14,9 +14,6 @@
 function fillSlots(array $game) {
 	global $p_slot;
 	$slots = new Template($p_slot);
-	$distr = findDistributor();
-	$slots->set('pathTo',$distr->pathTo());
-	unset($distr);
 	$op = "";
 	foreach ($game as $key => $value) {
 		$slots->set('name', $value->getName());
