@@ -14,7 +14,7 @@
 html {
 	background: #000000;
 	color:		#FFFFFF;
-	overflow: scroll;
+	overflow: hidden;
 	height: 100%;
 }
 
@@ -23,7 +23,6 @@ body {
 	max-width: 100%;
 	margin: 0;
 	padding: 0;
-	height: inherit;
 }
 
 html a,
@@ -31,49 +30,52 @@ html a:focus,
 html a:hover,
 html a:visited { outline: none; text-decoration: none; }
 
-#main {
-	height: inherit;
-}
+#main {}
 
 #main > #head {}
 
 #main > #footer {}
 
-#main > #content {
-	height: inherit;
-}
+#main > #content {}
 
 #main > #content > #container {
-    display: inline-block;
-    left: 50%;
-    position: relative;
-    top: 25%;
-    bottom: 25%;
+    position: absolute;
+    top: 50%;
+    margin-top: -206px;
+    width: 100%;
+    left: 0;
 }
 
 #main > #content > #container > #box {
-    left: -50%;
     position: relative;
+    height: 302px;
+    width: 100%;
+    max-width: 100%;
+    margin: auto;
+    padding: 55px 0;
+    overflow-y: hidden;
+    /*overflow-x: scroll;*/
 }
 
 #main > #content > #container > #box > .slot {
-	float: left;
 	padding: 0;
 	margin: 0;
 	cursor: pointer;
-	position: relative;
 	width: 93px;
 	height: 302px;
 	overflow: hidden;
 	transition-duration: 1s;
 	box-shadow: none;
 	z-index: 1;
+	position: absolute;
+	top: 45px;
 }
 
 #main > #content > #container > #box > .slot:hover {
 	width: 115px;
 	height: 373px;
-	margin-top: -40px;
+	margin-top: -35px;
+	margin-left: -10px;
 	transition-duration: 1s;
 	box-shadow: 0 0 10px 0 #FFFFFF;
 	z-index: 999;

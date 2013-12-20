@@ -22,6 +22,8 @@ $layout  = $html . 'layout.html';
 $main 	 = $html . 'main.html';
 $head 	 = $html . 'head.html';
 $footer  = $html . 'footer.html';
+
+// Content templates
 $content = $con . 'default.html';
 $p_slot	 = $partials . 'slot.html';
 
@@ -31,8 +33,7 @@ $footer = new Template;
 
 // Content
 $content = new Template($content);
-$games = findGames();
-$content->set('slots', fillSlots($games));
+fillSlots(findGames());
 
 // Close db conntection
 mysql_close($dbLink);
