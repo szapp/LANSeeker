@@ -25,6 +25,7 @@ function findGames() {
 		$query .= ' WHERE `id` IN (' . $finfo[0] . ')';
 	if (!$result = $db->query($query))
 		die("Could not retrieve games from database");
+	$games = [];
 	while ($line = $result->fetch_assoc())
 		$games[] = new Game($line);
 	$result->close();
