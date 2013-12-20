@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file manageLocs.php
+ * @file manageLocations.php
  *
  * @brief Contains functions to manage available Distributors
  */

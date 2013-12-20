@@ -20,23 +20,22 @@ $pp = array(
 	'pagetitle'	=> 'LAN Seeker'
 	);
 
+// Declare template files
 // Framework
 $layout  = $html . 'layout.html';
 $main 	 = $html . 'main.html';
 $head 	 = $html . 'head.html';
 $footer  = $html . 'footer.html';
-
-// Content templates
+// Content
 $content = $con . 'default.html';
-$p_slot	 = $partials . 'slot.html';
+$pSlot	 = $partials . 'slot.html';
 
 // Head and footer
 $head = new Template;
 $footer = new Template;
 
 // Content
-$content = new Template($content);
-fillSlots(findGames());
+$content = fillSlots(findGames(),$pSlot, $content);
 
 // Close db conntection
 $db->close();

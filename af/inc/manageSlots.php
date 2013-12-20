@@ -11,9 +11,8 @@
  *
  * @return Applied html of all Game slots
  */
-function fillSlots(array $game) {
-	global $p_slot, $content;
-	$slots = new Template($p_slot);
+function fillSlots(array $game, $pSlot, $content) {
+	$slots = new Template($pSlot);
 	$offset = 20;
 	$i = $offset;
 	$op = "";
@@ -25,7 +24,9 @@ function fillSlots(array $game) {
 		$op .= $slots->render() . "\n";
 	}
 	$op .= "<div class='spacer' style='width: {$offset}px; left: {$i}px;'></div>";
+	$content = new Template($content);
 	$content->set('slots', $op);
-	$content->set('width', ($i + $offset + 20) . "px");
+	$content->set('width', ($i + $offset) . "px");
+	return $content;
 }
 ?>
