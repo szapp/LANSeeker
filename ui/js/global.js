@@ -1,5 +1,32 @@
 $( document ).ready(function() {
 
+	$(function() {
+		$(".slot").animate({opacity:1},"fast");
+	});
+
+	$(function() {
+		var element = $('#box').jScrollPane(
+				{
+					animateScroll: true,
+					animateDuration: 2,
+					showArrows: true,
+					arrowScrollOnHover: true,
+					autoReinitialise: true,
+					arrowButtonSpeed: 5,
+					enableKeyboardNavigation: true
+				}
+			);
+		var api = element.data('jsp');
+		element.bind(
+		     'mousewheel',
+		     function (event, delta, deltaX, deltaY)
+		     {
+		         api.scrollByX(-delta*20);
+		         return false;
+		     }
+		);
+	});
+
 	$(".slot").click(
 	    function() {
 	    	var $this = $(this);

@@ -11,7 +11,8 @@ require_once('global.php');
 // Page properties
 $pp = array(
 	'favicon' 	=> $img . 'favicon.png',
-	'css'		=> $css . 'global.css',
+	'css1'		=> $css . 'jquery.jscrollpane.css',
+	'css2'		=> $css . 'global.css',
 	'js1'		=> $js . 'jquery-1.10.2.min.js',
 	'js2'		=> $js . 'jquery.jscrollpane.min.js',
 	'js3'		=> $js . 'jquery.mousewheel.js',
