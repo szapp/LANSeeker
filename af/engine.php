@@ -13,7 +13,9 @@ $pp = array(
 	'favicon' 	=> $img . 'favicon.png',
 	'css'		=> $css . 'global.css',
 	'js1'		=> $js . 'jquery-1.10.2.min.js',
-	'js2'		=> $js . 'global.js',
+	'js2'		=> $js . 'jquery.jscrollpane.min.js',
+	'js3'		=> $js . 'jquery.mousewheel.js',
+	'js4'		=> $js . 'global.js',
 	'pagetitle'	=> 'LAN Seeker'
 	);
 
