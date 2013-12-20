@@ -13,7 +13,7 @@ require_once($rp . 'af/global.php');
 
 $protocol = "appurl://";
 // Return path of most suitable database with exe
-echo $protocol . findDistributor()->pathTo() . $_REQUEST['exe'];
+echo $protocol . findDistributor()->pathTo();
 
 // TODO: Add protocol to exectue programs
 ?>
