@@ -24,7 +24,7 @@ function fillSlots(array $game) {
 		$slots->set('left', (($i += 94) - 94) . "px");
 		$op .= $slots->render() . "\n";
 	}
-	$op .= "<div class='slot' style='width: {$offset}px; left: {$i}px;'></div>";
+	$op .= "<div class='spacer' style='width: {$offset}px; left: {$i}px;'></div>";
 	$content->set('slots', $op);
 	$content->set('width', ($i + $offset) . "px");
 }
