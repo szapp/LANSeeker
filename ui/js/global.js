@@ -30,6 +30,10 @@ $( document ).ready(function() {
 	$(".slot").click(
 	    function() {
 	    	var $this = $(this);
+	    	document.getElementById("loading").style.display = "block";
+	    	setTimeout(function(){
+	    			document.getElementById("loading").style.display = "none";
+	    		},15000);
 			$.ajax({
 				url: "af/ajaxDistributor.php",
 				success: function(data) {
