@@ -12,11 +12,22 @@
  * @return $games The first Game object
  */
 function findGames() {
+	global $db;
+	$query = 'SELECT `games` FROM `profiles` WHERE `active`=1 LIMIT 1';
+	if (!$result = $db->query($query))
+		die("Could not retrieve profiles from database");
+	if (!$finfo = $result->fetch_array())
+		die("No active profiles");
+	$result->close();
+
 	$query = 'SELECT `name`,`cover`,`exe` FROM `games`';
-	$result = mysql_query($query)
-		or die('Could not retrieve games: ' . mysql_error());
-	while ($line = mysql_fetch_array($result, MYSQL_ASSOC))
+	if ($finfo[0] != "all")
+		$query .= ' WHERE `id` IN (' . $finfo[0] . ')';
+	if (!$result = $db->query($query))
+		die("Could not retrieve games from database");
+	while ($line = $result->fetch_assoc())
 		$games[] = new Game($line);
+	$result->close();
 	return $games;
 }
 ?>

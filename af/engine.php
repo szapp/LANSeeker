@@ -39,7 +39,7 @@ $content = new Template($content);
 fillSlots(findGames());
 
 // Close db conntection
-mysql_close($dbLink);
+$db->close();
 
 // Assemble main
 $main = new Template($main);

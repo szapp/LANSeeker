@@ -112,6 +112,5 @@ class Game {
 	protected $_name;
 	protected $_exe;
 	protected $_cover;
-	protected $_next = NULL;
 }
 ?>

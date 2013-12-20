@@ -6,9 +6,10 @@
  * @brief Connects to database
  */
 
-$dbLink = mysql_connect($dbHost, $dbUser, $dbPass)
-    or die('Could not connect: ' . mysql_error());
-mysql_select_db($dbName)
-	or die('Could not select database');
+$db = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
 
+if (mysqli_connect_errno()) {
+	printf("Connect failed: %s\n", mysqli_connect_error());
+	exit();
+}
 ?>

@@ -12,9 +12,12 @@
  * @return Most suitable Distributor
  */
 function findDistributor() {
+	global $db;
 	$query = 'SELECT `drive`,`path` FROM `distributors` WHERE `utilization` != -1 ORDER BY `utilization` ASC LIMIT 1';
-	$result = mysql_query($query)
-		or die('Could not retrieve Distributors: ' . mysql_error());
-	return new Distributor(mysql_fetch_array($result, MYSQL_ASSOC));
+	if (!$result = $db->query($query))
+		die("Could not retrieve distributors from database");
+    $finfo = $result->fetch_assoc();
+    $result->close();
+	return new Distributor($finfo);
 }
 ?>
