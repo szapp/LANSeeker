@@ -70,13 +70,19 @@ html a:visited { outline: none; text-decoration: none; }
 	border: none;
 	outline: none;
 	opacity: 0.5;
-
-	/*transition-duration: 2s;
-	opacity:0.5;
-	filter:alpha(opacity=50);*/
+	max-width: 93px;
+	max-height: 302px;
 }
 
-/*#main > #content > #container > #box > .slot:hover > img,
+/* Simple CSS transition method */
+/*
+#main > #content > #container > #box > .slot > img {
+	transition-duration: 2s;
+	opacity:0.5;
+	filter:alpha(opacity=50);
+}
+
+#main > #content > #container > #box > .slot:hover > img,
 #main > #content > #container > #box > .slot:focus > img {
 	transition-duration: 2s;
 	opacity:1;
