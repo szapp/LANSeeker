@@ -11,7 +11,7 @@ $rp = '../';
 require_once($rp . 'af/global.php');
 
 // Check whether protocol is installed
-$query = 'SELECT `client` FROM `protocol_' . $protocol . '` WHERE `client`="' . strtolower(gethostname()) . 's"';
+$query = 'SELECT `client` FROM `protocol_' . $protocol . '` WHERE `client`="' . strtolower(gethostname()) . '"';
 if (!$result = $db->query($query))
 	die("Could not retrieve protocol check from database");
 $protocol_inst = false;
