@@ -30,14 +30,17 @@ $( document ).ready(function() {
 	$(".slot").click(
 	    function() {
 	    	var $this = $(this);
-	    	document.getElementById("loading").style.display = "block";
+	    	$("#loading").css("display", "block");
+	    	$("#footer #info").css("display", "block");
 	    	setTimeout(function(){
-	    			document.getElementById("loading").style.display = "none";
-	    		},15000);
+	    			$("#loading").css("display", "none");
+	    		},20000);
 			$.ajax({
 				url: "af/ajaxDistributor.php",
+				dataType: 'json',
 				success: function(data) {
-					location = data + $this.find("img").attr("data-ref");
+					$("#tooltip").val(data["path"] + $this.find("img").attr("data-ref"));
+					location = data["protocol"] + data["path"] + $this.find("img").attr("data-ref");
 	          }
 	       });
 	    }
@@ -47,9 +50,21 @@ $( document ).ready(function() {
 	  function() {
 	    $(this).find(".shade").stop().animate({opacity:0},"fast");
 		$(this).find("img").stop().animate({opacity:1},"fast");
+		$("#tooltip").val($(this).find("img").attr("title"));
+		$("#footer #info").css("display", "none");
 	  },
 	  function() {
 	    $(this).find(".shade").stop().animate({opacity:1},"slow");
 	    $(this).find("img").stop().animate({opacity:0.5},"slow");
+	    if ($("#loading").css("display") === "none") {
+	    	$("#tooltip").val("");
+	    	$("#footer #info").css("display", "none");
+	    }
 	  });
+
+	$("#tooltip").click(
+		function() {
+			$("#tooltip").select();
+		}
+	);
 });

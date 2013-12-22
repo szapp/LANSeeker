@@ -34,8 +34,6 @@ html a:visited { outline: none; text-decoration: none; }
 
 #main #head {}
 
-#main #footer {}
-
 #main #content {}
 
 #main #content #container {
@@ -158,4 +156,47 @@ html a:visited { outline: none; text-decoration: none; }
     margin-top: 150px;
     opacity: 1;
     padding: 20px 0;
+}
+
+#main #footer {
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	z-index: 2000;
+}
+
+#main #footer #tooltip {
+    background-color: rgba(2, 2, 2, 0.6);
+    border: medium none;
+    border-radius: 9px;
+    color: #FFFFFF;
+    font-family: tahoma;
+    font-size: 18px;
+    margin: 0;
+    padding: 3px 10px;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    cursor: pointer;
+}
+
+#main #footer #info {
+	display: none;
+	padding: 0; 
+	margin: 0; 
+	width: 100%; 
+	text-align: center;
+}
+
+#main #footer #info img {
+	width: 64px;
+	height: 64px;
+	border: none;
+	outline: none;
+}
+
+#main #footer #info span {
+	position: relative;
+	top: -20px;
+	font-size: 22px;
 }

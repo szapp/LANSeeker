@@ -25,14 +25,14 @@ $pp = array(
 $layout  = $html . 'layout.html';
 $main 	 = $html . 'main.html';
 $head 	 = $html . 'head.html';
-$footer  = $html . 'footer.html';
+$footer  = $partials . 'footer.html';
 // Content
 $content = $con . 'default.html';
 $pSlot	 = $partials . 'slot.html';
 
 // Head and footer
 $head = new Template;
-$footer = new Template;
+$footer = new Template($footer);
 
 // Content
 $content = fillSlots(findGames(),$pSlot, $content);
