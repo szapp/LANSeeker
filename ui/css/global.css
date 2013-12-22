@@ -189,7 +189,7 @@ html a:visited { outline: none; text-decoration: none; }
 }
 
 #main #footer #info img {
-	width: 64px;
+	width: auto;
 	height: 64px;
 	border: none;
 	outline: none;
