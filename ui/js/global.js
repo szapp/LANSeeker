@@ -1,10 +1,9 @@
 $( document ).ready(function() {
 
 	$(function() {
+		$("#tooltip").val("");
 		$(".slot").animate({opacity:1},"fast");
-	});
-
-	$(function() {
+		// Scrollpane
 		var element = $('#box').jScrollPane(
 				{
 					animateScroll: true,
@@ -31,18 +30,25 @@ $( document ).ready(function() {
 	    function() {
 	    	var $this = $(this);
 	    	$("#loading").css("display", "block");
-	    	$("#footer #info").css("display", "block");
+	    	$(".jspHorizontalBar .jspDrag").css("display", "none");
 	    	setTimeout(function(){
+	    			$(".jspHorizontalBar .jspDrag").css("display", "block");
 	    			$("#loading").css("display", "none");
+	    			$("#loading p").html("Loading...");
 	    		},20000);
 			$.ajax({
 				url: "af/ajaxDistributor.php",
 				dataType: 'json',
 				success: function(data) {
+					if (data["installed"]) 
+						location = data["protocol"] + data["path"] + $this.find("img").attr("data-ref");
+					else
+						$("#loading p").html("Bitte zuerst den Setup Launcher installieren...<br><span style='font-size: 22px;'>(Aktion nur einmalig nötig)</span>");
+					$("#footer #info").css("display", "block");
 					$("#tooltip").val(data["path"] + $this.find("img").attr("data-ref"));
-					location = data["protocol"] + data["path"] + $this.find("img").attr("data-ref");
-	          }
-	       });
+					$("#tooltip").select();
+				}
+			});
 	    }
 	);
 
@@ -52,6 +58,7 @@ $( document ).ready(function() {
 		$(this).find("img").stop().animate({opacity:1},"fast");
 		$("#tooltip").val($(this).find("img").attr("title"));
 		$("#footer #info").css("display", "none");
+		$("#tooltip").blur();
 	  },
 	  function() {
 	    $(this).find(".shade").stop().animate({opacity:1},"slow");

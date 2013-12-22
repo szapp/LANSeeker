@@ -10,15 +10,17 @@ if (!isset($rp))
 	$rp = '../';
 
 // Global variables
-$class 		= $rp . 'af/classes/';
-$inc 		= $rp . 'af/inc/';
-$html 		= $rp . 'ui/html/';
-$partials 	= $html . 'partials/';
-$con 		= $html . 'content/';
-$css 		= $rp . 'ui/css/';
-$img 		= $rp . 'ui/img/';
-$js 		= $rp . 'ui/js/';
-$res 		= $rp . 'res/';
+$class 			= $rp . 'af/classes/';
+$inc 			= $rp . 'af/inc/';
+$html 			= $rp . 'ui/html/';
+$partials 		= $html . 'partials/';
+$con 			= $html . 'content/';
+$css 			= $rp . 'ui/css/';
+$img 			= $rp . 'ui/img/';
+$js 			= $rp . 'ui/js/';
+$res 			= $rp . 'res/';
+$protocol 		= 'appurl';
+$protocol_exec 	= $rp . 'af/exec/' . $protocol . '_inst.exe';
 
 // Classes
 require_once($class . "Template.php");
