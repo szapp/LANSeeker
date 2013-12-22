@@ -10,7 +10,8 @@ require_once('global.php');
 
 // Page properties
 $pp = array(
-	'favicon' 	=> $img . 'favicon.png',
+	'favicon' 	=> $img . 'favicon.ico',
+	'faviconpng' 	=> $img . 'favicon.png',
 	'css1'		=> $css . 'jquery.jscrollpane.css',
 	'css2'		=> $css . 'global.css',
 	'js1'		=> $js . 'jquery-1.10.2.min.js',
