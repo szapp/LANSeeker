@@ -47,7 +47,7 @@ $( document ).ready(function() {
 						location = data["protocol"] + data["path"] + $this.find("img").attr("data-ref");
 					else
 						$("#loading p").html("Bitte zuerst den Setup Launcher installieren...<br><span style='font-size: 22px;'>(Aktion nur einmalig nötig)</span>");
-					$("#tooltip").val(data["path"] + $this.find("img").attr("data-ref"));
+					$("#address").val(data["path"] + $this.find("img").attr("data-ref"));
 				}
 			});
 	    }
@@ -57,25 +57,25 @@ $( document ).ready(function() {
 	  function() {
 	    $(this).find(".shade").stop().animate({opacity:0},"fast");
 		$(this).find("img").stop().animate({opacity:1},"fast");
-		$("#tooltip").val($(this).find("img").attr("title"));
+		$("#address").css("display","none");
+		$("#tooltip").css("display","inline-block");
+		$("#tooltip").html($(this).find("img").attr("title"));
 		$("#footer #info").css("display", "none");
 		$("#help").css("display","none");
-		$("#tooltip").blur();
-		$("#tooltip").css("display","inline-block");
 	  },
 	  function() {
 	    $(this).find(".shade").stop().animate({opacity:1},"slow");
 	    $(this).find("img").stop().animate({opacity:0.5},"slow");
 	    if ($("#loading").css("display") === "none") {
-	    	$("#tooltip").val("");
+	    	$("#tooltip").html("");
 	    	$("#footer #info").css("display", "none");
 	    	$("#help").css("display","none");
 	    }
 	  });
 
-	$("#tooltip").click(
+	$("#address").click(
 		function() {
-			$("#tooltip").select();
+			$(this).select();
 		}
 	);
 
@@ -83,8 +83,9 @@ $( document ).ready(function() {
 		function() {
 			$("#footer #info").css("display", "inline-block");
 			$(this).css("display","none");
-			$("#tooltip").css("display","inline-block");
-			$("#tooltip").select();
+			$("#tooltip").css("display","none");
+			$("#address").css("display","inline-block");
+			$("#address").select();
 		}
 	);
 });

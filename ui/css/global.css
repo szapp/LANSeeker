@@ -206,8 +206,8 @@ html a:visited { outline: none; text-decoration: none; }
 	font-size: 22px;
 }
 
-#main #footer #tooltip {
-	display: inline-block;
+#main #footer #address {
+	display: none;
 	width: 100%;
 	max-width: 100%;
     background-color: rgba(2, 2, 2, 0.6);
@@ -220,4 +220,16 @@ html a:visited { outline: none; text-decoration: none; }
     padding: 3px 10px;
     text-align: center;
     outline: none;
+    cursor: pointer;
+}
+
+#main #footer #tooltip {
+	display: inline-block;
+    background-color: rgba(2, 2, 2, 0.6);
+    border: none;
+    border-radius: 9px;
+    font-size: 18px;
+    margin: 0;
+    padding: 3px 10px;
+    text-align: center;
 }
