@@ -45,7 +45,7 @@ $( document ).ready(function() {
 						location = data["protocol"] + data["path"] + $this.find("img").attr("data-ref");
 					else {
 						$("#loading p").html("Bitte zuerst den Setup Launcher installieren...<br><span style='font-size: 22px;'>(Aktion nur einmalig nötig)</span>");
-						// location = data["exec"];
+						location = data["exec"];
 					}
 					$("#address").val(data["path"] + $this.find("img").attr("data-ref"));
 				}

@@ -6,8 +6,8 @@
  * @brief Takes care of global includes and definitions
  */
 
-if (!isset($rp))
-	$rp = '../';
+/* if (!isset($rp))
+	$rp = '../'; */
 
 // Global variables
 $class 			= $rp . 'af/classes/';
@@ -20,7 +20,7 @@ $img 			= $rp . 'ui/img/';
 $js 			= $rp . 'ui/js/';
 $res 			= $rp . 'res/';
 $protocol 		= 'appurl';
-$protocol_exec 	= $rp . 'af/exec/' . $protocol . '_inst.exe';
+$protocol_exec 		= './af/exec/' . $protocol . '_inst.exe'; // Caution: Different path
 
 // Classes
 require_once($class . "Template.php");
