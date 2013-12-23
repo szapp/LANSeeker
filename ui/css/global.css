@@ -136,6 +136,12 @@ html a:visited { outline: none; text-decoration: none; }
 	z-index: 999;
 }
 
+/* Head notification */
+
+#main #head #note {
+	display: none;
+}
+
 /* Loading notification */
 
 #main #content #container #loading {

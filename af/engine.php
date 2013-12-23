@@ -25,14 +25,14 @@ $pp = array(
 // Framework
 $layout  = $html . 'layout.html';
 $main 	 = $html . 'main.html';
-$head 	 = $html . 'head.html';
+$head 	 = $partials . 'head.html';
 $footer  = $partials . 'footer.html';
 // Content
 $content = $con . 'default.html';
 $pSlot	 = $partials . 'slot.html';
 
 // Head and footer
-$head = new Template;
+$head = new Template($head);
 $footer = new Template($footer);
 
 // Content
