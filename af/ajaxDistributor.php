@@ -10,8 +10,10 @@
 $rp = '../';
 require_once($rp . 'af/global.php');
 
+$clientname= explode(".", strtolower(gethostbyaddr($_SERVER['REMOTE_ADDR'])));
+
 // Check whether protocol is installed
-$query = 'SELECT `client` FROM `protocol_' . $protocol . '` WHERE `client`="' . strtolower(gethostname()) . '"';
+$query = 'SELECT `client` FROM `protocol_' . $protocol . '` WHERE `client`="' . $clientname[0] . '"';
 if (!$result = $db->query($query))
 	die("Could not retrieve protocol check from database");
 $protocol_inst = false;
