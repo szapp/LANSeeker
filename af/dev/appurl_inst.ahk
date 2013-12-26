@@ -27,7 +27,9 @@ if (instVersion >= Version)
 {
 	; Already installed
 	; MsgBox, Already up-to-date ; Remove
-	GoSub, ToExit
+
+	; Allow reinstall!
+	; GoSub, ToExit 
 }
 
 ; TODO: Adjust path
@@ -105,7 +107,10 @@ Loop, %d_path%*.*, 2, 0
 	FileRead, Contents, %A_LoopFileLongPath%\mimeTypes.rdf
 	if ErrorLevel
 		Continue
-	StringReplace, Contents, Contents, <RDF:Seq RDF:about="urn:schemes:root">, <RDF:Seq RDF:about="urn:schemes:root">`n    <RDF:li RDF:resource="urn:scheme:appurl"/>
+	if InStr(Contents, "<RDF:Seq RDF:about=""urn:schemes:root"">")
+		StringReplace, Contents, Contents, <RDF:Seq RDF:about="urn:schemes:root">, <RDF:Seq RDF:about="urn:schemes:root">`n    <RDF:li RDF:resource="urn:scheme:appurl"/>
+	else
+		addto := "<RDF:Seq RDF:about=""urn:schemes:root"">`n    <RDF:li RDF:resource=""urn:scheme:appurl""/>`n  </RDF:Seq>" . addto
 	StringReplace, Contents, Contents, </RDF:RDF>, %addto%
 	FileDelete, %A_LoopFileLongPath%\mimeTypes.rdf
 	FileAppend, %Contents%, %A_LoopFileLongPath%\mimeTypes.rdf
