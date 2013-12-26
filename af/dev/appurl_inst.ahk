@@ -76,12 +76,13 @@ d_path := A_AppData "\Mozilla\Firefox\Profiles\"
 
 addto =
 (
+		
 	  <RDF:Description RDF:about="urn:scheme:appurl"
 	                 NC:value="appurl">
 	  <NC:handlerProp RDF:resource="urn:scheme:handler:appurl"/>
 	</RDF:Description>
 	<RDF:Description RDF:about="urn:handler:local:%path%"
-	                 NC:prettyName="appurl.exe"
+	                 NC:prettyName="Setup Launcher"
 	                 NC:path="%path%" />
 	<RDF:Description RDF:about="urn:scheme:handler:appurl"
 	                 NC:alwaysAsk="false">

@@ -18,7 +18,7 @@ function findGames() {
 		die("Could not retrieve profiles from database");
 	if (!$finfo = $result->fetch_array())
 		die("No active profiles");
-	$result->close();
+	$result->free();
 
 	$query = 'SELECT `name`,`cover`,`exe` FROM `games`';
 	if ($finfo[0] != "all")
@@ -28,7 +28,7 @@ function findGames() {
 	$games = [];
 	while ($line = $result->fetch_assoc())
 		$games[] = new Game($line);
-	$result->close();
+	$result->free();
 	return $games;
 }
 ?>

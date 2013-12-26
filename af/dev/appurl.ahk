@@ -67,10 +67,8 @@ IfInString, param, %appurl%
 
 Run, %param%, , UseErrorLevel
 if ErrorLevel
-{
     TrayTip, %filen% not found!, Please try again, , 3
-    Sleep, 5000
-}
+Sleep, 5000
 ExitApp
 
 ;; UNINSTALL
@@ -98,6 +96,21 @@ if ErrorLevel
     uninst1 := "x Not r"
 }
 RegRead, tmppath, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher, InstallLocation
+RegRead, firefox_inst, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher, FirefoxIntegrated
+
+d_path := A_AppData "\Mozilla\Firefox\Profiles\"
+Loop, Parse, firefox_inst, |
+{
+    if (A_LoopField = "") || (A_LoopField = " ")
+        Continue
+    FileRead, Contents, %d_path%%A_LoopField%\mimeTypes.rdf
+    if ErrorLevel
+        Continue
+    StringReplace, Contents, Contents, <RDF:li RDF:resource="urn:scheme:appurl"/>, 
+    FileDelete, %d_path%%A_LoopField%\mimeTypes.rdf
+    FileAppend, %Contents%, %d_path%%A_LoopField%\mimeTypes.rdf
+}
+
 RegDelete, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher
 
 MsgBox, 32, Setup Launcher uninstalled, The Setup Launcher was uninstalled!`n`n %uninst1%emoved from registry.

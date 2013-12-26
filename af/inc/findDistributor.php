@@ -17,7 +17,7 @@ function findDistributor() {
 	if (!$result = $db->query($query))
 		die("Could not retrieve distributors from database");
     $finfo = $result->fetch_assoc();
-    $result->close();
+    $result->free();
 	return new Distributor($finfo);
 }
 ?>
