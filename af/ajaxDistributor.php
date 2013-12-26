@@ -7,7 +7,8 @@
  */
 
 // Config
-$rp = '../';
+if (!isset($rp))
+	$rp = '../';
 require_once($rp . 'af/global.php');
 
 $path = findDistributor()->pathTo();

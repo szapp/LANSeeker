@@ -28,11 +28,13 @@ body {
 html a,
 html a:focus,
 html a:hover,
-html a:visited { outline: none; text-decoration: none; }
+html a:visited {
+	color: #FFFFFF;
+	outline: none;
+	text-decoration: none;
+}
 
 #main {}
-
-#main #head {}
 
 #main #content {}
 
@@ -138,9 +140,32 @@ html a:visited { outline: none; text-decoration: none; }
 
 /* Head notification */
 
-#main #head #note {
-	display: none;
+#main #head {
+	position: fixed;
+	top: 0;
+	z-index: 2000;
+	max-width: 100%;
+	width: 100%;
+	text-align: right;
 }
+
+#main #head #note {
+	background-color: rgba(2, 2, 2, 0.6);
+	border: none;
+	border-radius: 9px;
+	padding: 3px 10px;
+	/* cursor: pointer; */
+	display: inline-block;
+	font-size: 14px;
+}
+
+#main #head #note img {
+	width: 16px;
+	height: 16px;
+	padding-right: 3px;
+	vertical-align: bottom;
+}
+
 
 /* Loading notification */
 

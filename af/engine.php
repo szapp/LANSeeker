@@ -31,12 +31,22 @@ $footer  = $partials . 'footer.html';
 $content = $con . 'default.html';
 $pSlot	 = $partials . 'slot.html';
 
-// Head and footer
+// Head
+ob_start();
+include "af/ajaxDistributor.php";
+$protocolInst = ob_get_contents();
+ob_end_clean();
+$protocolInst = json_decode($protocolInst)->installed;
 $head = new Template($head);
+$head->set('exec', $protocol_exec);
+$head->set('img', $img . ($protocolInst ? "good.png" : "caution.png"));
+$head->set('label', $protocolInst ? "Browser plug-in installed. Click here to re-install" : "Install browser plug-in");
+
+// Footer
 $footer = new Template($footer);
 
 // Content
-$content = fillSlots(findGames(),$pSlot, $content);
+$content = fillSlots(findGames(), $pSlot, $content);
 
 // Close db conntection
 $db->close();
