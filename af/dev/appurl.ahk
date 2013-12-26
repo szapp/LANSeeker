@@ -1,4 +1,4 @@
-﻿;mpress
+;mpress
 ;
 ; appurl.ahk
 ; Author: szapp
@@ -38,24 +38,71 @@
 ;@="\"C:\\Program Files\\AutoHotKeyAppURL\\appurl.exe\" \"%1\""
 ;-------------------------------------------------------------------
 
-if 0 != 1 ;Check %0% to see how many parameters were passed in
+#SingleInstance, ignore
+#NoEnv
+
+if 0 != 1 ; Check %0% to see how many parameters were passed in
 {
-    msgbox ERROR: There are %0% parameters. There should be 1 parameter exactly.
+    MsgBox, ERROR: There are %0% parameters. There should be 1 parameter exactly.
+    ExitApp
 }
-else
+
+param = %1%  ; Fetch the contents of the command line argument
+
+if (param = "-uninst")
+    Gosub, uninst
+
+filen := SubStr(param, InStr(param, "\", 0, 0)+1)
+TrayTip, Starting %filen%, Please wait..., , 1
+
+appurl := "appurl://" ; This should be the URL Protocol that you registered in the Windows Registry
+
+IfInString, param, %appurl%
 {
-    param = %1%  ;Fetch the contents of the command line argument
-
-    appurl := "appurl://" ; This should be the URL Protocol that you registered in the Windows Registry
-
-    IfInString, param, %appurl%
-    {
-        arglen := StrLen(param) ;Length of entire argument
-        applen := StrLen(appurl) ;Length of appurl
-        len := arglen - applen ;Length of argument less appurl
-        StringRight, param, param, len ; Remove appurl portion from the beginning of parameter
-    }
-
-    Run, %param%
-
+    arglen := StrLen(param) ;Length of entire argument
+    applen := StrLen(appurl) ;Length of appurl
+    len := arglen - applen ;Length of argument less appurl
+    StringRight, param, param, len ; Remove appurl portion from the beginning of parameter
 }
+
+Run, %param%, , UseErrorLevel
+if ErrorLevel
+{
+    TrayTip, %filen% not found!, Please try again, , 3
+    Sleep, 5000
+}
+ExitApp
+
+;; UNINSTALL
+uninst:
+
+if not A_IsAdmin
+{
+    params := "-uninst"
+    Run *RunAs %A_ScriptFullPath% /restart %params%, %A_WorkingDir%, UseErrorLevel
+    Sleep, 2000 ; If the current instance is not replaced after two seconds, it probably failed
+    MsgBox, 16, Initialization failed, The program could not be started. Please restart the application with administrative rights!
+    ExitApp, 1 ; Exit current instance
+}
+
+SetRegView 32 ; Wow6432Node\
+MsgBox, 36, Uninstall Setup Launcher, Are you sure to uninstall Setup Launcher?
+IfMsgBox No
+    ExitApp
+
+uninst1 := "* R"
+RegDelete, HKEY_CLASSES_ROOT, appurl
+if ErrorLevel
+{
+    MsgBox, 48, Registry error, Could not remove registry entries properly!
+    uninst1 := "x Not r"
+}
+RegRead, tmppath, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher, InstallLocation
+RegDelete, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher
+
+MsgBox, 32, Setup Launcher uninstalled, The Setup Launcher was uninstalled!`n`n %uninst1%emoved from registry.
+del_com := "ping 127.0.0.1 -n 2 > nul`nrmdir /S /Q """ tmppath """`ndel """ A_Temp "\delsetup.bat"""
+FileDelete, %A_Temp%\delsetup.bat
+FileAppend, %del_com%, %A_Temp%\delsetup.bat
+Run, %A_Temp%\delsetup.bat, %A_Temp%, Hide UseErrorlevel
+ExitApp

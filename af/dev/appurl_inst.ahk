@@ -1,4 +1,4 @@
-;mpress
+﻿; mpress
 #SingleInstance, ignore
 #NoTrayIcon
 #NoEnv
@@ -12,25 +12,33 @@ if not A_IsAdmin
 	ExitApp, 1 ; Exit current instance
 }
 
-; TODO: Install appurl.exe
+host := "PC-HOST" ; Enter host here: Network-name of the machine running the web-interface
+Author := "szapp"
+Version = 7.0.0.1
+Projectname := "Setup Launcher"
+FileGetSize, Projectsize, %A_ScriptFullPath%, K
 
 SetRegView 32 ; Wow6432Node\
-RegRead, tmp, HKEY_CLASSES_ROOT, appurl
-if (tmp = "URL:appurl protocol")
+RegRead, instVersion, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher, DisplayVersion
+RegRead, firefox_inst, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher, FirefoxIntegrated
+if (!firefox_inst)
+	firefox_inst := ""
+if (instVersion >= Version)
 {
 	; Already installed
-	; MsgBox, Already installed ; Remove
+	; MsgBox, Already up-to-date ; Remove
 	GoSub, ToExit
 }
 
 ; TODO: Adjust path
-path := "D:\Data\Dropbox\Projects\AutoHotkey Scripts\AppURL\appurl.exe"
+path := A_ProgramFiles "\SetupLauncher\appurl.exe"
+FileCreateDir, % SubStr(path, 1, InStr(path, "\", 0, 0))
+; TODO: Install appurl.exe
+FileInstall, appurl.exe, %path%, 1
 
 subkeys := [], keys := [], values := []
 subkeys.Insert("appurl")
    keys.Insert(""), values.Insert("URL:appurl protocol")
-subkeys.Insert("appurl")
-   keys.Insert(""), values.Insert("")
 subkeys.Insert("appurl")
    keys.Insert("URL Protocol"), values.Insert("")
 subkeys.Insert("appurl\DefaultIcon")
@@ -72,27 +80,25 @@ addto =
 	                 NC:value="appurl">
 	  <NC:handlerProp RDF:resource="urn:scheme:handler:appurl"/>
 	</RDF:Description>
-
 	<RDF:Description RDF:about="urn:handler:local:%path%"
 	                 NC:prettyName="appurl.exe"
 	                 NC:path="%path%" />
-
-
 	<RDF:Description RDF:about="urn:scheme:handler:appurl"
 	                 NC:alwaysAsk="false">
 	  <NC:possibleApplication RDF:resource="urn:handler:local:%path%"/>
 	  <NC:externalApplication RDF:resource="urn:scheme:externalApplication:appurl"/>
 	</RDF:Description>
-
-
 	<RDF:Description RDF:about="urn:scheme:externalApplication:appurl"
 	                 NC:prettyName="Setup Launcher"
 	                 NC:path="%path%" />
+
 </RDF:RDF>
 )
 
 Loop, %d_path%*.*, 2, 0
 {
+	if InStr(firefox_inst, A_LoopFileName . "|")
+		Continue
 	; %A_LoopFileLongPath%\mimeTypes.rdf
 	FileCopy, %A_LoopFileLongPath%\mimeTypes.rdf, %A_LoopFileLongPath%\mimeTypes.rdf.BAK, 1
 	FileRead, Contents, %A_LoopFileLongPath%\mimeTypes.rdf
@@ -102,8 +108,22 @@ Loop, %d_path%*.*, 2, 0
 	StringReplace, Contents, Contents, </RDF:RDF>, %addto%
 	FileDelete, %A_LoopFileLongPath%\mimeTypes.rdf
 	FileAppend, %Contents%, %A_LoopFileLongPath%\mimeTypes.rdf
+	firefox_inst .= A_LoopFileName . "|"
 }
 
+; Register for uninstall
+RegWrite, REG_SZ, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher
+RegWrite, REG_SZ, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher, DisplayIcon, "%path%"
+RegWrite, REG_SZ, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher, DisplayName, %Projectname%
+RegWrite, REG_SZ, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher, DisplayVersion, %Version%
+RegWrite, REG_SZ, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher, InstallLocation, % SubStr(path, 1, InStr(path, "\", 0, 0))
+RegWrite, REG_DWORD, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher, NoRepair, 1
+RegWrite, REG_DWORD, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher, NoModify, 1
+RegWrite, REG_DWORD, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher, EstimatedSize, %Projectsize%
+RegWrite, REG_SZ, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher, UninstallString, "%path%" "-uninst"
+RegWrite, REG_SZ, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher, Publisher, %Author%
+RegWrite, REG_SZ, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher, FirefoxIntegrated, %firefox_inst%
+
 ToExit:
-Run, http://PC-HOST/lanseeker/af/confirmInstall.php?protocol=appurl
+Run, http://%host%/af/confirmInstall.php?protocol=appurl&version=%Version%
 ExitApp
