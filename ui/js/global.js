@@ -17,10 +17,13 @@ $( document ).ready(function() {
 		element.bind(
 			'mousewheel',
 			function (event, delta, deltaX, deltaY) {
-				api.scrollByX(-delta*20);
+				api.scrollByX(-delta*40);
 				return false;
 			}
 		);
+		setTimeout(function() {
+			api.scrollToPercentX(0.5);
+		},500);
 	});
 
 	$(".slot").click(
@@ -32,11 +35,11 @@ $( document ).ready(function() {
 	    	$("#tooltip").css("display","none");
 	    	$("#help").css("display","inline-block");
 	    	setTimeout(function() {
-	    			$(".jspHorizontalBar .jspDrag").css("display", "block");
-	    			$("#loading").css("display", "none");
-	    			$("#loading p").html("Loading...");
-	    			$("#help").css("display","none");
-	    		},20000);
+				$(".jspHorizontalBar .jspDrag").css("display", "block");
+				$("#loading").css("display", "none");
+				$("#loading p").html("Loading...");
+				$("#help").css("display","none");
+			},20000);
 			$.ajax({
 				url: "af/ajaxDistributor.php",
 				dataType: 'json',
