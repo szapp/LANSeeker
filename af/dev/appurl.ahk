@@ -52,7 +52,7 @@ param = %1%  ; Fetch the contents of the command line argument
 if (param = "-uninst")
     Gosub, uninst
 
-filen := SubStr(param, InStr(param, "\", 0, 0)+1)
+filen := Trim(SubStr(param, InStr(param, "\", 0, 0)+1), "/")
 TrayTip, Starting %filen%, Please wait..., , 1
 
 pathHDD := "\TransData\Games\"

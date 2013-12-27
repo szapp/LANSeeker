@@ -12,12 +12,12 @@ if not A_IsAdmin
 	ExitApp, 1 ; Exit current instance
 }
 
-Progress, M T H55 W400 FM10 WM400, , Installing please stand by..., Installing browser plug-in, Tahoma
+Progress, M T A H55 W400 FM10 WM400, , Installing please stand by..., Installing browser plug-in, Tahoma
 Progress, 10
 
 host := "PC-HOST" ; Enter host here: Network-name of the machine running the web-interface
 Author := "szapp"
-Version = 7.0.0.2
+Version = 7.0.0.3
 Projectname := "Setup Launcher"
 FileGetSize, Projectsize, %A_ScriptFullPath%, K
 
