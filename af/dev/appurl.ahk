@@ -113,6 +113,9 @@ Loop, Parse, firefox_inst, |
 
 RegDelete, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher
 
+FileSetAttrib, -RH, %A_DesktopCommon%\LAN Seeker.lnk
+FileDelete, %A_DesktopCommon%\LAN Seeker.lnk
+
 MsgBox, 32, Setup Launcher uninstalled, The Setup Launcher was uninstalled!`n`n %uninst1%emoved from registry.
 del_com := "ping 127.0.0.1 -n 2 > nul`nrmdir /S /Q """ tmppath """`ndel """ A_Temp "\delsetup.bat"""
 FileDelete, %A_Temp%\delsetup.bat

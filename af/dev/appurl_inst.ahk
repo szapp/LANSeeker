@@ -12,6 +12,9 @@ if not A_IsAdmin
 	ExitApp, 1 ; Exit current instance
 }
 
+Progress, M T H55 W400 FM10 WM400, , Installing please stand by..., Installing browser plug-in, Tahoma
+Progress, 10
+
 host := "PC-HOST" ; Enter host here: Network-name of the machine running the web-interface
 Author := "szapp"
 Version = 7.0.0.1
@@ -29,8 +32,10 @@ if (instVersion >= Version)
 	; MsgBox, Already up-to-date ; Remove
 
 	; Allow reinstall!
-	; GoSub, ToExit 
+	; GoSub, ToExit
 }
+
+Progress, 25
 
 ; TODO: Adjust path
 path := A_ProgramFiles "\SetupLauncher\appurl.exe"
@@ -62,6 +67,8 @@ Loop, % subkeys.maxIndex()
 	}
 }
 
+Progress, 45
+
 ; Integrate into firefox
 
 i = 0
@@ -72,13 +79,14 @@ While WinExist("ahk_exe firefox.exe")
 	WinClose, ahk_exe firefox.exe
 	i++
 	Sleep, 7000
+	Progress, 50
 }
 
 d_path := A_AppData "\Mozilla\Firefox\Profiles\"
 
 addto =
 (
-		
+
 	  <RDF:Description RDF:about="urn:scheme:appurl"
 	                 NC:value="appurl">
 	  <NC:handlerProp RDF:resource="urn:scheme:handler:appurl"/>
@@ -97,6 +105,8 @@ addto =
 
 </RDF:RDF>
 )
+
+Progress, 75
 
 Loop, %d_path%*.*, 2, 0
 {
@@ -117,6 +127,8 @@ Loop, %d_path%*.*, 2, 0
 	firefox_inst .= A_LoopFileName . "|"
 }
 
+Progress, 100
+
 ; Register for uninstall
 RegWrite, REG_SZ, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher
 RegWrite, REG_SZ, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher, DisplayIcon, "%path%"
@@ -130,6 +142,11 @@ RegWrite, REG_SZ, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\
 RegWrite, REG_SZ, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher, Publisher, %Author%
 RegWrite, REG_SZ, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SetupLauncher, FirefoxIntegrated, %firefox_inst%
 
+FileSetAttrib, -RH, %A_DesktopCommon%\LAN Seeker.lnk
+FileDelete, %A_DesktopCommon%\LAN Seeker.lnk
+FileCreateShortcut, http://%host%, %A_DesktopCommon%\LAN Seeker.lnk, , , LAN Seeker, %path%, , 1
+
 ToExit:
 Run, http://%host%/af/confirmInstall.php?protocol=appurl&version=%Version%
+Sleep, 2000
 ExitApp
