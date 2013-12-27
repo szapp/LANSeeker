@@ -17,7 +17,7 @@ Progress, 10
 
 host := "PC-HOST" ; Enter host here: Network-name of the machine running the web-interface
 Author := "szapp"
-Version = 7.0.0.1
+Version = 7.0.0.2
 Projectname := "Setup Launcher"
 FileGetSize, Projectsize, %A_ScriptFullPath%, K
 
