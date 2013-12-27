@@ -41,10 +41,13 @@ $( document ).ready(function() {
 				url: "af/ajaxDistributor.php",
 				dataType: 'json',
 				success: function(data) {
-					if (data["installed"]) 
+					if ((data["installed"]) && (!data["update"]))
 						location = data["protocol"] + data["path"] + $this.find("img").attr("data-ref");
 					else {
-						$("#loading p").html("Bitte zuerst den Setup Launcher installieren...<br><span style='font-size: 22px;'>(Aktion nur einmalig nötig)</span>");
+						if (data["installed"])
+							$("#loading p").html("Bitte zuerst das Browser plug-in updaten...<br><span style='font-size: 22px;'>(Aktion nur einmalig nötig)</span>");
+						else
+							$("#loading p").html("Bitte zuerst das Browser plug-in installieren...<br><span style='font-size: 22px;'>(Aktion nur einmalig nötig)</span>");
 						location = data["exec"];
 					}
 					$("#address").val(data["path"] + $this.find("img").attr("data-ref"));

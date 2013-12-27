@@ -36,11 +36,12 @@ ob_start();
 include "af/ajaxDistributor.php";
 $protocolInst = ob_get_contents();
 ob_end_clean();
+$protocolUpdt = json_decode($protocolInst)->update;
 $protocolInst = json_decode($protocolInst)->installed;
 $head = new Template($head);
 $head->set('exec', $protocol_exec);
-$head->set('img', $img . ($protocolInst ? "good.png" : "caution.png"));
-$head->set('label', $protocolInst ? "Browser plug-in installed. Click here to re-install" : "Install browser plug-in");
+$head->set('img', $img . (($protocolInst && !$protocolUpdt) ? "good.png" : "caution.png"));
+$head->set('label', ($protocolInst && $protocolUpdt) ? "Browser plug-in muss geupdatet werden" : ($protocolInst ? "Browser plug-in installiert. Zum Neu-Installieren hier klicken" : "Browser plug-in installieren"));
 
 // Footer
 $footer = new Template($footer);
