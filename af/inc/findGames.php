@@ -23,6 +23,7 @@ function findGames() {
 	$query = 'SELECT `name`,`cover`,`exe` FROM `games`';
 	if ($finfo[0] != "all")
 		$query .= ' WHERE `id` IN (' . $finfo[0] . ')';
+	$query .= ' ORDER BY `order` ASC';
 	if (!$result = $db->query($query))
 		die("Could not retrieve games from database");
 	$games = [];
