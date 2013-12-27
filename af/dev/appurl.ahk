@@ -55,6 +55,7 @@ if (param = "-uninst")
 filen := SubStr(param, InStr(param, "\", 0, 0)+1)
 TrayTip, Starting %filen%, Please wait..., , 1
 
+pathHDD := "\TransData\Games\"
 appurl := "appurl://" ; This should be the URL Protocol that you registered in the Windows Registry
 
 IfInString, param, %appurl%
@@ -64,11 +65,27 @@ IfInString, param, %appurl%
     len := arglen - applen ;Length of argument less appurl
     StringRight, param, param, len ; Remove appurl portion from the beginning of parameter
 }
+host := SubStr(param, 1, InStr(param, "\", 0, 1, 3))
+
+TrayTip, Starting %filen%, Please wait..., , 1 ; Refresh
+; Find HDD
+DriveGet, lst, List, REMOVABLE
+DriveGet, ls2, List, FIXED
+lst := lst . ls2
+Loop, Parse, lst
+    IfExist, %A_LoopField%:
+        IfExist, %A_LoopField%:%pathHDD%%filen%
+        {
+            param := A_LoopField ":" pathHDD filen
+            host := A_LoopField ":\"
+            Break
+        }
+TrayTip, Starting %filen%, From %host%`nPlease wait..., , 1
 
 Run, %param%, , UseErrorLevel
 if ErrorLevel
     TrayTip, %filen% not found!, Please try again, , 3
-Sleep, 5000
+Sleep, 8000
 ExitApp
 
 ;; UNINSTALL
