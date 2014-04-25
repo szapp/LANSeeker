@@ -12,7 +12,6 @@ if (!isset($rp))
 require_once($rp . 'af/global.php');
 
 $path = findDistributor()->pathTo();
-$clientname = explode(".", strtolower(gethostbyaddr($_SERVER['REMOTE_ADDR'])))[0];
 
 // Check for latest protocol version
 $query = 'SELECT `versionlist` FROM `protocols` WHERE `protocol`="' . $protocol . '"';
