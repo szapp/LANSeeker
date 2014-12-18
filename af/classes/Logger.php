@@ -17,6 +17,9 @@ class Logger {
      * @brief Constructor
      *
      * @param $file Log file
+     * @param $padding Integer: padding for all section
+     *				   Array containing different padding for each section
+     * @param $spacing Integer representing the spacing between sections
      */
 	public function __construct($file, $padding = 0, $spacing = 4) {
 		$this->_file = $file;
@@ -44,6 +47,12 @@ class Logger {
 		file_put_contents($this->_file, "\n" . date("Y-m-d H:i:s") . str_repeat(" ", $this->_spacing) . $write, FILE_APPEND | LOCK_EX);
 	}
 
+	/**
+	 * @brief Returns the amount of padding
+	 * 
+	 * @param Specific section
+	 * @return Section index, if there is a specific padding, otherwise default padding
+	 */
 	private function getCount($index) {
 		if (count($this->_padding) > $index)
 			return $index;
