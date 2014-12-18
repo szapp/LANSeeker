@@ -34,4 +34,7 @@ require_once($inc . "config.php");
 require_once($inc . "findGames.php");
 require_once($inc . "findDistributor.php");
 
+// Make logger accessible from all files
+$log = new Logger($backend . 'activity.log', array(20,0), 4);
+
 ?>

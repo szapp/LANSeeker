@@ -38,7 +38,6 @@ $protocolInst = ob_get_contents();
 ob_end_clean();
 $protocolUpdt = json_decode($protocolInst)->update;
 $protocolInst = json_decode($protocolInst)->installed;
-$log = new Logger($backend . 'activity.log', array(20,0), 4);
 $head = new Template($head);
 $head->set('exec', $protocol_exec);
 $head->set('img', $img . (($protocolInst && !$protocolUpdt) ? "good.png" : "caution.png"));
