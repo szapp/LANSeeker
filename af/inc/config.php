@@ -8,7 +8,7 @@
 
 $dbHost = "localhost";
 $dbUser = "root";
-$dbPass = "";
+$dbPass = ""; // Enter password
 $dbName = "lanseeker";
 
 require_once($inc . "connect.php");
