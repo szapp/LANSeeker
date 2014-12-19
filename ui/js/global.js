@@ -1,4 +1,14 @@
-$( document ).ready(function() {
+// Custom functions
+function log($args) {
+	$.ajax({
+		url: "af/logHelper.php",
+		type: "POST",
+		data: {args: $args}
+	});
+};
+
+// Document functions
+$(document).ready(function() {
 
 	$(function() {
 		$("#tooltip").val("");
@@ -27,14 +37,14 @@ $( document ).ready(function() {
 	});
 
 	$(".slot").click(
-	    function() {
-	    	var $this = $(this);
-	    	$("#loading").css("display", "block");
-	    	$(".jspHorizontalBar .jspDrag").css("display", "none");
-	    	$("#footer #info").css("display", "none");
-	    	$("#tooltip").css("display","none");
-	    	$("#help").css("display","inline-block");
-	    	setTimeout(function() {
+		function() {
+			var $this = $(this);
+			$("#loading").css("display", "block");
+			$(".jspHorizontalBar .jspDrag").css("display", "none");
+			$("#footer #info").css("display", "none");
+			$("#tooltip").css("display","none");
+			$("#help").css("display","inline-block");
+			setTimeout(function() {
 				$(".jspHorizontalBar .jspDrag").css("display", "block");
 				$("#loading").css("display", "none");
 				$("#loading p").html("Loading...");
@@ -44,9 +54,13 @@ $( document ).ready(function() {
 				url: "af/ajaxDistributor.php",
 				dataType: 'json',
 				success: function(data) {
-					if ((data["installed"]) && (!data["update"]))
+					if (data["error"]) {
+						$("#loading p").html("Ein unerwarteter Fehler ist aufgetreten...<br><span style='font-size: 22px;'>(Bitte gib Bescheid)</span>");
+						log([data["client"], "encountered an ERROR: '" + data["error"] + "' while installing '" + $this.find("img").attr("title") + "' from " + data["path"]]);
+					} else if ((data["installed"]) && (!data["update"])) {
+						log([data["client"], "installs '" + $this.find("img").attr("title") + "' from " + data["path"]]);
 						location = data["protocol"] + data["path"] + $this.find("img").attr("data-ref");
-					else {
+					} else {
 						if (data["installed"])
 							$("#loading p").html("Bitte zuerst das Browser plug-in updaten...<br><span style='font-size: 22px;'>(Aktion nur einmalig nötig)</span>");
 						else
@@ -56,7 +70,7 @@ $( document ).ready(function() {
 					$("#address").val(data["path"] + $this.find("img").attr("data-ref"));
 				}
 			});
-	    }
+		}
 	);
 
 	$(".slot").hover(
